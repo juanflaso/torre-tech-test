@@ -5,10 +5,33 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css'
 import { BrowserRouter } from 'react-router-dom';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark'
+  },
+  primary: {
+    light: '#4f5156',
+    main: '#27292d',
+    dark: '#000002',
+    contrastText: '#fff',
+  },
+  secondary: {
+    light: '#ffff6e',
+    main: '#cddc39',
+    dark: '#99aa00',
+    contrastText: '#000',
+  },
+});
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <App />
+    </ThemeProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
