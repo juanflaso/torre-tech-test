@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         color: "rgba(255, 255, 255, 0.9)",
         fontWeight: 700
     },
-    media: {
+    opportunityMedia: {
       height: 0,
       paddingTop: '56.25%', // 16:9
     },
@@ -94,7 +94,7 @@ export default function OportunityCard(props) {
                         )}
                         />
                         <CardMedia
-                        className={classes.media}
+                        className={classes.opportunityMedia}
                         image="https://res.cloudinary.com/torre-technologies-co/image/upload/v1616011736/origin/opportunities/Screen_Shot_2021-03-17_at_1.33.12_PM_di65j9.jpg"
                         title={props.opportunity.objective}
                         />

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import OpportunityCard from '../../components/cards/opportunity/OpportunityCard.jsx'
+import OpportunityCard from '../../components/cards/opportunity/OpportunityCard.jsx';
+import PersonCard from '../../components/cards/person/PersonCard.jsx';
+import OrganizationCard from '../../components/cards/organization/OrganizationCard.jsx';
+import CardsCarousel from '../../components/cards/carousel/CardsCarousel.jsx';
 import axios from 'axios';
 
 const HomeFeed = () => {
@@ -26,10 +29,14 @@ const HomeFeed = () => {
 
     return (
         <div>
+            <CardsCarousel></CardsCarousel>
             {(results.map( (result) => 
                 <OpportunityCard key={(result.id)} opportunity={(result)}/>
             
             ))}
+            <OrganizationCard/>
+            <PersonCard></PersonCard>
+
             
         </div>
     );
