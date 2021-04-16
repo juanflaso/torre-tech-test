@@ -29,13 +29,21 @@ const HomeFeed = () => {
 
     return (
         <div>
-            <CardsCarousel></CardsCarousel>
+            <CardsCarousel>
+                <PersonCard/>
+                <PersonCard/>
+                <PersonCard/>
+            </CardsCarousel>
             {(results.map( (result) => 
                 <OpportunityCard key={(result.id)} opportunity={(result)}/>
             
             ))}
-            <OrganizationCard/>
-            <PersonCard></PersonCard>
+            <CardsCarousel>
+                <OrganizationCard/>
+                <OrganizationCard/>
+                <OrganizationCard/>
+                <OrganizationCard/>
+            </CardsCarousel>
 
             
         </div>

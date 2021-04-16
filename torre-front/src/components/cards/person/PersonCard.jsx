@@ -26,7 +26,9 @@ const useStyles = makeStyles({
       margin: "10px 5px 10px 5px"
   },
   personName: {
-    color: "rgba(255, 255, 255, 0.9)"
+    color: "rgba(255, 255, 255, 0.9)",
+    marginRight: "20px",
+    marginLeft: "20px"
   },
   personDescription: {
       textAlign: 'left',

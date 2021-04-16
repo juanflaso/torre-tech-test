@@ -13,12 +13,11 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 const useStyles = makeStyles({
   personOuterCard: {
     maxWidth: 345,
-    minHeight:615,
     width:"100%",
     paddingBottom: "40px"
   },
   media: {
-    height: 280,
+    height: 300,
   },
   signal: {
     margin: 'auto',
@@ -28,17 +27,13 @@ const useStyles = makeStyles({
       margin: "10px 5px 10px 5px"
   },
   personName: {
-    color: "rgba(255, 255, 255, 0.9)"
+    color: "rgba(255, 255, 255, 0.9)",
+    marginRight: "20px",
+    marginLeft: "20px"
   },
-  personDescription: {
-      textAlign: 'left',
-      height: "140px",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      whiteSpace: "initial",
-      display: "-webkit-box",
-      WebkitLineClamp: 3,
-      WebkitBoxOrient: "vertical"
+  organizationMembers: {
+    width: "144px",
+    margin: "auto"
   }
 });
 

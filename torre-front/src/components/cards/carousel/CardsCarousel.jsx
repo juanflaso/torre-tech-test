@@ -31,6 +31,8 @@ export default function CardsCarousel(props) {
     const handleSelect = (selectedIndex, e) => {
       setIndex(selectedIndex);
     };
+
+    console.log(props)
   
     return (
         <React.Fragment>
@@ -52,15 +54,11 @@ export default function CardsCarousel(props) {
                     
                     
                     <Carousel activeIndex={index} onSelect={handleSelect}>
-                        <Carousel.Item>
-                            <PersonCard/>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <PersonCard/>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <PersonCard/>
-                        </Carousel.Item>
+                        {props.children.map( (child, index) => 
+                            <Carousel.Item key={index}>
+                                {child}
+                            </Carousel.Item>
+                        )}
                     </Carousel>
                 </Grid>
             </Grid>
