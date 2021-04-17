@@ -13,21 +13,15 @@ queryParser = QueryParser()
 def getFeed(request):
     request_data = request.data
 
-    print(request_data)
-
     query = request_data['query']
 
     parsedText = queryParser.getPairings(query)
 
-    data = { "and": parsedText}
+    query = { "and": parsedText}
 
-    print(json.dumps(data))
-
-    #{"language": {"term": "Spanish", "fluency": "conversational"}}
     headers = {'Content-type': 'application/json'}
-    response = requests.post(TORRE_OPPORTUNITIES_SEARCH_URL, data = json.dumps(data), headers=headers).json()
+    response = requests.post(TORRE_OPPORTUNITIES_SEARCH_URL, data = json.dumps(query), headers=headers).json()
 
-    print(len(response["results"]))
     results = response["results"]
 
     if len(response["results"]) > 0:

@@ -1,11 +1,9 @@
 from bisect import bisect_left
 
 def takeClosestNumber(myList, myNumber):
-    """
-    Assumes myList is sorted. Returns closest value to myNumber.
-
-    If two numbers are equally close, return the smallest number.
-    """
+    #Assumes myList is sorted. Returns closest value to myNumber.
+    #If two numbers are equally close, return the smallest number.
+    
     pos = bisect_left(myList, myNumber)
     if pos == 0:
         return myList[0]

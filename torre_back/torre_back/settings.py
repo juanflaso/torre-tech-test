@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'feed',
-    'search.apps.SearchConfig',
+    'feed.apps.FeedConfig',
 
     'rest_framework',
     'requests',
