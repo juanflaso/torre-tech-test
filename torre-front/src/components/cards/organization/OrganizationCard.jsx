@@ -13,7 +13,7 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 const useStyles = makeStyles({
   personOuterCard: {
     maxWidth: 345,
-    width:"100%",
+    margin: "auto",
     paddingBottom: "40px"
   },
   media: {
@@ -37,31 +37,42 @@ const useStyles = makeStyles({
   }
 });
 
-export default function OrganizationCard() {
+export default function OrganizationCard(props) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
         <Card className={classes.personOuterCard}>
             <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image="https://res.cloudinary.com/torre-technologies-co/image/upload/v1600927140/origin/bio/organizations/Recursion_Pharmaceuticals_bihtmc.png"
-                title="Recursion Pharmaceuticals"
-                />
+                {(
+                    props.picture?
+                    <CardMedia
+                    className={classes.media}
+                    image={props.picture}
+                    title={props.name}
+                    />: <></>
+                )}
+                
                 <CardContent>
                 <Typography className={classes.personName} gutterBottom variant="h5" component="h2">
-                    Recursion Pharmaceuticals
+                    {props.name}
                 </Typography>
-                <Typography className={classes.personDescription} variant="body2" color="textSecondary" component="p">
-                    You would be working with:
-                </Typography>
-                <AvatarGroup max={4}>
-                    <Avatar alt="Remy Sharp" src="https://starrgate.s3.amazonaws.com:443/users/ec195af433c2879de35cb637ac4fbea97ac23cc2/profile_sU8F6Lj.jpg" />
-                    <Avatar alt="Travis Howard" src="https://starrgate.s3.amazonaws.com:443/users/a8e34d9217baaf5f66637de98a1b56d6a5ac369f/profile_vJZUpFo.jpg" />
-                    <Avatar alt="Cindy Baker" src="https://starrgate.s3.amazonaws.com:443/users/0f4d75512b5a65bf510125f5117e9164da892571/profile_vtg9xny.jpg" />
-                    <Avatar alt="Agnes Walker" src="https://starrgate.s3.amazonaws.com:443/users/64a28630601d18fb973853c3f8314a2784002cfc/profile_bC0gQCZ.jpg" />
-                </AvatarGroup>
+                {(props.members.length > 0 ?
+                    <React.Fragment>
+                        <Typography className={classes.personDescription} variant="body2" color="textSecondary" component="p">
+                        You would be working with:
+                        </Typography>
+                        <AvatarGroup className={classes.organizationMembers} max={4}>
+                            {(
+                                props.members.map( (member) =>
+                                    <Avatar key={member.subjectId + props.id} alt={member.name} src={member.picture} />
+                                )
+                            )}
+                        </AvatarGroup>
+                    </React.Fragment>:
+                    <React.Fragment></React.Fragment>
+                )}
+                
                 </CardContent>
             </CardActionArea>
             <CardActions>

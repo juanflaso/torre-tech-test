@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import OpportunityCard from '../../components/cards/opportunity/OpportunityCard.jsx';
-import PersonCard from '../../components/cards/person/PersonCard.jsx';
-import OrganizationCard from '../../components/cards/organization/OrganizationCard.jsx';
-import CardsCarousel from '../../components/cards/carousel/CardsCarousel.jsx';
+import TextField from '@material-ui/core/TextField';
+import SearchForm from '../../components/searchForm/SearchForm.jsx';
+import { getCard } from '../../components/factory/cardFactory.jsx';
 import axios from 'axios';
 
 const HomeFeed = () => {
     const [results, setResults] = useState([]);
+    const [djangoResults, setDjangoResults] = useState([]);
+    const [queryToSend, setQueryToSend] = useState();
+
+    const setSearchQueryFromForm = (query) => {
+        setQueryToSend(query);
+    }
 
     useEffect( () => {
+        console.log("from effect: "+ queryToSend);
 
-        const request_dict = {
-            and: [{"skill/role": {text: "machine learning", experience: "1-plus-year"}}],
+        if(queryToSend && queryToSend.length > 0) {
+            axios.post("http://127.0.0.1:8000/feed/", {query: queryToSend})
+            .then( res => {
+                console.log(res);
+                setDjangoResults(res.data)
+            })
         }
 
-        axios.post("https://search.torre.co/opportunities/_search?currency=USD%24&page=0&periodicity=hourly&lang=es&size=20&aggregate=false&offset=0", request_dict)
-        .then(res => {
+        
 
-            console.log(res);
-            setResults(res.data.results)
-            
-        })
-    }, [])
+    }, [queryToSend])
 
     useEffect( () => {
         console.log(results)
@@ -29,21 +34,8 @@ const HomeFeed = () => {
 
     return (
         <div>
-            <CardsCarousel>
-                <PersonCard/>
-                <PersonCard/>
-                <PersonCard/>
-            </CardsCarousel>
-            {(results.map( (result) => 
-                <OpportunityCard key={(result.id)} opportunity={(result)}/>
-            
-            ))}
-            <CardsCarousel>
-                <OrganizationCard/>
-                <OrganizationCard/>
-                <OrganizationCard/>
-                <OrganizationCard/>
-            </CardsCarousel>
+            <SearchForm setSearchQueryFromForm={setSearchQueryFromForm}/>
+            {(djangoResults.map( (result, index) => getCard(result, index)))}
 
             
         </div>

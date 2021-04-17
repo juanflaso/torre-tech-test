@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   personOuterCard: {
     maxWidth: 345,
     minHeight:615,
-    width:"100%",
+    margin: "auto",
     paddingBottom: "40px"
   },
   media: {
@@ -42,21 +42,24 @@ const useStyles = makeStyles({
   }
 });
 
-export default function PersonCard() {
+export default function PersonCard(props) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
         <Card className={classes.personOuterCard}>
             <CardActionArea>
-                <CardMedia
-                className={classes.media}
-                image="https://starrgate.s3.amazonaws.com:443/users/5782a70d576d656e7c32341da803307f93792696/profile_jvxh0wK.jpg"
-                title="Juan Francisco Laso Delgado"
-                />
+                {(
+                    props.picture?
+                    <CardMedia
+                    className={classes.media}
+                    image={props.picture}
+                    title={props.name}
+                    />: <></>
+                )}
                 <CardContent>
                 <Typography className={classes.personName} gutterBottom variant="h5" component="h2">
-                    Juan Francisco Laso Delgado
+                    {props.name}
                 </Typography>
                 <Typography className={classes.personDescription} variant="body2" color="textSecondary" component="p">
                     Computer Engineer graduate currently working in my thesis using data analysis and machine learning for predictions. 
