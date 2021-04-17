@@ -25,7 +25,16 @@ SECRET_KEY = 'vyl52f6k^$&#do1z$3$-cn*aj5&341r)azb_@-s6ujo2em!smz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost', '127.0.0.1'
+]
+
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+)
+
+#CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -39,13 +48,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'feed',
+    'search.apps.SearchConfig',
 
     'rest_framework',
     'requests',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

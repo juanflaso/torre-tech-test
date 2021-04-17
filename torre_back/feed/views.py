@@ -2,25 +2,44 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from .constants import TORRE_OPPORTUNITIES_SEARCH_URL, GOOD_OPPS_SHOWN_AT_START, NOT_GOOD_OPPS_SHOWN_AT_ALTERNATING_START, GOOD_OPPS_SHOWN_ALTERNATING
+from .QueryParser import QueryParser
 import requests
 import json
 # Create your views here.
+
+queryParser = QueryParser()
 
 @api_view(['POST'])
 def getFeed(request):
     request_data = request.data
 
-    data = { "and": [{"skill/role": {"text": "machine learning", "experience": "1-plus-year"}}]}
+    print(request_data)
+
+    query = request_data['query']
+
+    parsedText = queryParser.getPairings(query)
+
+    data = { "and": parsedText}
+
+    print(json.dumps(data))
+
+    #{"language": {"term": "Spanish", "fluency": "conversational"}}
     headers = {'Content-type': 'application/json'}
     response = requests.post(TORRE_OPPORTUNITIES_SEARCH_URL, data = json.dumps(data), headers=headers).json()
 
+    print(len(response["results"]))
     results = response["results"]
 
-    indexesOfResultsReordered = getListOfAlternatingIndexes(len(results))
+    if len(response["results"]) > 0:
+        indexesOfResultsReordered = getListOfAlternatingIndexes(len(results))
 
-    mixedAlternatingResponse = generateMixedAlternatingResponse(results, indexesOfResultsReordered)
+        mixedAlternatingResponse = generateMixedAlternatingResponse(results, indexesOfResultsReordered)
 
-    return HttpResponse(json.dumps(mixedAlternatingResponse), content_type='application/json')
+        return HttpResponse(json.dumps(mixedAlternatingResponse), content_type='application/json')
+    
+    errorDictionary = [{"type": "error", "result": "No results for your search!"}]
+
+    return HttpResponse(json.dumps(errorDictionary), content_type='application/json')
 
 
 def generateMixedAlternatingResponse(results, indexesOfResultsReordered):
@@ -43,7 +62,7 @@ def generateMixedAlternatingResponse(results, indexesOfResultsReordered):
                 mixedAlternatingResponse.append(
                     {
                         "type": "people",
-                        "result": peopleList
+                        "result": list({v['subjectId']:v for v in peopleList}.values())
                     }
                 )
 
@@ -54,7 +73,7 @@ def generateMixedAlternatingResponse(results, indexesOfResultsReordered):
                 mixedAlternatingResponse.append(
                     {
                         "type": "organization",
-                        "result": organizationsList
+                        "result": list({v['id']:v for v in organizationsList}.values()) #unique values
                     }
                 )
 
