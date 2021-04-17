@@ -6,7 +6,6 @@ import PersonCard from '../cards/person/PersonCard.jsx';
 import NoResultsCard from '../cards/noResults/NoResultsCard.jsx';
 
 export function getCard(result, index) {
-    console.log("in get card");
     switch (result["type"]) {
         case "opportunity":
             return <OpportunityCard key={index} opportunity={(result["result"])}/>
@@ -14,7 +13,7 @@ export function getCard(result, index) {
         case "people":
             if (result["result"].length > 0) {
                 return (
-                    <CardsCarousel key={index} >
+                    <CardsCarousel type="people" key={index} >
                         {(result["result"].map( (person) => 
                             <PersonCard
                                 key={person.id + index}
@@ -32,7 +31,7 @@ export function getCard(result, index) {
         case "organization":
             if (result["result"].length > 0) {
                 return (
-                    <CardsCarousel key={index}>
+                    <CardsCarousel type="organization" key={index}>
 
                         {(result["result"].map( (organization) => 
                             <OrganizationCard

@@ -29,7 +29,6 @@ const SearchForm = (props) => {
     const [queryToSend, setQueryToSend] = useState("");
 
     const handleSubmit = (event) => {
-        console.log("handling submit "+ queryToSend);
         props.setSearchQueryFromForm(queryToSend);
         event.preventDefault();
         

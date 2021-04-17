@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import Carousel from 'react-bootstrap/Carousel';
-import PersonCard from '../person/PersonCard.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -31,8 +30,6 @@ export default function CardsCarousel(props) {
     const handleSelect = (selectedIndex, e) => {
       setIndex(selectedIndex);
     };
-
-    console.log(props)
   
     return (
         <React.Fragment>
@@ -41,16 +38,28 @@ export default function CardsCarousel(props) {
 
             <Grid container justify="space-around" >
                 <Grid className={classes.cardContainer} item xs={11} md={5}>
-
-                    <Paper>
-                        <Typography className={classes.signalText} gutterBottom component="h2">
-                            Would you consider working with these people? 
-                        </Typography>
-                        <Divider className={classes.carouselDivider} variant="middle" />
-                        <Typography className={classes.signalTextExplanation} gutterBottom component="h5">
-                            Signaling people you'd like working with will improve our job suggestions
-                        </Typography>
-                    </Paper>
+                    {(
+                        props.type === "people" ?
+                        <Paper>
+                            <Typography className={classes.signalText} gutterBottom component="h2">
+                                Would you consider working with these people? 
+                            </Typography>
+                            <Divider className={classes.carouselDivider} variant="middle" />
+                            <Typography className={classes.signalTextExplanation} gutterBottom component="h5">
+                                Signaling people you'd like working with will improve our job suggestions
+                            </Typography>
+                        </Paper>:
+                        <Paper>
+                            <Typography className={classes.signalText} gutterBottom component="h2">
+                                Would you consider working for these organizations? 
+                            </Typography>
+                            <Divider className={classes.carouselDivider} variant="middle" />
+                            <Typography className={classes.signalTextExplanation} gutterBottom component="h5">
+                                Signaling organizations you'd like working with will improve our job suggestions
+                            </Typography>
+                        </Paper>
+                    )}
+                    
                     
                     
                     <Carousel activeIndex={index} onSelect={handleSelect}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -68,7 +68,6 @@ export default function OportunityCard(props) {
 
   return (
       <React.Fragment>
-          {console.log("rendering..")}
           {(props.opportunity ? 
             <Grid container justify="space-around" >
                 <Grid className={classes.cardContainer} item xs={11} md={5}>
